@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
+use Faker\Factory as Faker;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -17,8 +18,11 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $faker = Faker::create('id_ID');
         return [
-            'name' => fake()->name(),
+            'nip_teknisi' => $faker->numerify('1#########'),
+            'nama_lengkap' => $faker->name(),
+            'no_telp' => $faker->numerify('08##########'),
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password

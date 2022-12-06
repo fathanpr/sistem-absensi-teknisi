@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('atms', function (Blueprint $table) {
             $table->id();
-            $table->char('nip_teknisi', 10)->nullable();
-            $table->string('nama_lengkap');
-            $table->char('no_telp', 12)->nullable();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('nama_atm');
+            $table->string('alamat_atm');
+            $table->string('kode_mesin');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('atms');
     }
 };

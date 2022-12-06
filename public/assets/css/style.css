@@ -1,0 +1,43 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+body {
+    background: linear-gradient(300deg,#003d79,#212121);
+    background-size: 120% 120%;
+    animation: gradient-animation 15s ease infinite;
+    color: white;
+    font-family: var(--bodyFontFamily), var(--bodyFontFamilyFallback);
+    font-size: var(--bodyFontSize);
+    font-weight: var(--bodyFontWeight);
+    line-height: var(--bodyLineHeight);
+    margin: 0;
+    min-block-size: 100vh;
+  }
+
+  @keyframes body {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
+
+  :root {
+    --absenBorderRadus: 1rem;
+    --absenColor: #eee;  
+    --absenSubmitBackgroundColor: rgb(255, 183, 0);
+    --absenSubmitColor: #eee;
+    --absenSubmitHoverBackgroundColor: rgb(0, 61, 121);
+    --absenBoxShadow: 0px 5px 20px rgb(0, 0, 0,0.5);
+  }
+
+  h1{
+    color: white;
+  }

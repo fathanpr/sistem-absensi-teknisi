@@ -1,0 +1,36 @@
+body {
+    background-color: hsl(0, 0%, 94%)
+    
+  }
+
+  .navbar{
+    background-color: rgba(23, 31, 41, 0.8);
+    position: fixed;
+    transition: 0.6s;
+    box-shadow: 0 3px 4px rgba(29, 11, 11, 0.349);
+}
+
+.sticky{
+  box-shadow: 0 3px 10px rgba(29, 11, 11, 0.349);
+}
+
+table{
+    overflow:auto
+}
+
+.container{
+  position:relative;
+}
+
+.konten{
+  margin-top:80px;
+}
+
+@media only screen and (max-width: 600px) {
+  body {
+    background-color: lightblue;
+  }
+  .btn{
+    margin-bottom: 10px;
+  }
+}
