@@ -17,6 +17,10 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
+Route::get('/', function(){
+    return view('auth.login');
+});
+
 Auth::routes();
 
 // Route::group(['middleware' => 'auth'], function () {});
@@ -30,8 +34,8 @@ Route::get('/admin/showimage/{id}', [AdminController::class, 'showimage'])->name
 // pegawai
 Route::resource('absen', AbsenController::class)->middleware('auth');
 
-
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
