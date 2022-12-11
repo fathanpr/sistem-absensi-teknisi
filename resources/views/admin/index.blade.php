@@ -39,7 +39,7 @@
         </div>
     </div>
     <div class="shadow-5-strong rounded-5 overflow-auto">
-        <table class="table align-middle mb-0 bg-white">
+        <table class="table align-middle mb-0 bg-white" id="myTable">
             <thead class="bg-primary bg-gradient text-light fw-bold">
                 <tr>
                     <th style="width: 200px">NAMA</th>
@@ -51,39 +51,37 @@
                     <th class="text-center">STATUS</th>
                 </tr>
             </thead>
-            <tbody>
-                @foreach($datas as $data)
-                <tr>
-                    <td>
+            <tbody id="data">
+                {{-- @foreach($datas as $data) --}}
+                {{-- <tr> --}}
+                    {{-- <td>
                         <div class="d-flex align-items-center">
                             <div class="ms-3">
                                 <p class="fw-bold mb-0" style="width: 150px">{{ $data->user->nama_lengkap }}</p>
                                 <i class="fab fa-whatsapp text-primary"></i><a href="https://wa.me/{{ $data->user->no_telp }}" target="_blank"> Hubungi Teknisi</a>
                             </div>
                         </div>
-                    </td>
-                    <td class="text-center">
+                    </td> --}}
+                    {{-- <td class="text-center">
                         <p>{{ $data->atm->kode_mesin }}</p>
-                    </td>
-                    <td class="text-center">
+                    </td> --}}
+                    {{-- <td class="text-center">
                         <p>{{ $data->atm->nama_atm }}</p>
-                        {{-- <div id="googleMap" style="width:200px;height:200px;"></div> --}}
                         <div style="width:180;height:180;">
-                            {{-- <iframe src="https://www.google.com/maps?q={{ $data->latitude }},{{ $data->longitude }}&hl=es;z=14&output=embed'" frameborder="0"></iframe> --}}
                             <iframe src="https://www.google.com/maps?q={{ $data->latitude }},{{ $data->longitude }}&hl=es;z=14&output=embed" frameborder="0"></iframe>
                         </div>
-                    </td>
-                    <td>
+                    </td> --}}
+                    {{-- <td>
                         <p>{{Carbon\Carbon::parse($data->created_at)->format('H:i') ?? '' }} WIB</p>
-                    </td>
-                    <td>
+                    </td> --}}
+                    {{-- <td>
                         {{ $data->keterangan }}
-                    </td>
-                    <td class="text-center">
+                    </td> --}}
+                    {{-- <td class="text-center">
                         <img src="storage/uploads/{{ $data->foto }}" class="rounded" alt="" style="width: 100px; height: 100px" />
                         <a href="#" data-id="{{ $data->id }}" bs-toggle="modal" data-bs-target="#showImage" class="lihat-gambar">Lihat Gambar</a>
-                    </td>
-                    <td style="width: 200px" class="text-center">
+                    </td> --}}
+                    {{-- <td style="width: 200px" class="text-center">
                         @if($data->kondisi_mesin == 'Menunggu Tindakan')
                         <button type="button" class="btn btn-warning btn-rounded mb-2">Perlu Tindakan</button>
                         @elseif($data->kondisi_mesin == 'Selesai')
@@ -91,9 +89,9 @@
                         @else
                         @endif
                         <a href="#" data-id="{{ $data->id }}" class="ubah-status">Ubah status</a>
-                    </td>
-                </tr>
-                @endforeach
+                    </td> --}}
+                {{-- </tr> --}}
+                {{-- @endforeach --}}
             </tbody>
         </table>
     </div>
@@ -103,7 +101,7 @@
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <center>
@@ -144,5 +142,3 @@
     </div>
 </form>
 @endsection
-
-{{-- modal showimage --}}

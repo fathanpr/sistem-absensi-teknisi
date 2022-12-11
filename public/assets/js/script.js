@@ -23,12 +23,70 @@ function showError(error) {
     }
 }
 
-// GLOBAL SETUP
 $.ajaxSetup({
     headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-    },
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
 });
+
+
+function load() {
+
+    var date_format = function () {
+        var hari = new Date()
+        var jam = hari.getHours() + ":" + hari.getMinutes()
+        return (jam)
+    }
+
+    $.ajax({
+        url: '/admin',
+        type: 'GET',
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            $('#data').html('')
+            $.each(data, function (key, val) {
+                $('#data').append(
+                    "<tr>" +
+                    "<td>" +
+                    "<div class='d-flex align-items-center'>" +
+                    "<div class='ms-3 >" +
+                    "<p class='fw-bold mb-0' style='width:150px'>" + val.user.nama_lengkap + "</p>" +
+                    "<i class='fab fa-whatsapp text-primary'></i>" +
+                    "<a href='https://wa.me/" + val.user.no_telp + " target='_blank'> Hubungi Teknisi</a>" +
+                    "</div>" +
+                    "</div>" +
+                    "</td>" +
+                    "<td class='text-center'>" +
+                    "<p>" + val.atm.kode_mesin + "</p>" +
+                    "</td>" +
+                    "<td class='text-center'>" +
+                    "<p>" + val.atm.nama_atm + "</p>" +
+                    "<div style='width: 180; height: 180;'>" +
+                    "<iframe src='https://www.google.com/maps?q=" + val.latitude + "," + val.longitude + "&hl=es;z=14&output=embed' frameborder='0'>" + "</iframe>" +
+                    "</div>" +
+                    "</td>" +
+                    "<td>" +
+                    "<p>" + date_format(val.created_at) + "</p>" +
+                    "</td>" +
+                    "<td>" +
+                    val.keterangan +
+                    "</td>" +
+                    "<td class='text-center'>" +
+                    "<img src='storage/uploads/" + val.foto + "' class='rounded' alt='' style='width:100px; height:100px'/>" +
+                    "<a href='#'data-id='" + val.id + "' bs-toggle='modal' data-bs-target='#showImage' class='lihat-gambar'>Lihat Gambar</a>" +
+                    "</td>" +
+                    "<td style='width:200px' class='text-center'>" +
+                    (val.kondisi_mesin == 'Menunggu Tindakan' ? '<button type="button" class="btn btn-warning btn-rounded mb-2">Perlu Tindakan</button>' : val.kondisi_mesin == 'Selesai' ? '<button type="button" class="btn btn-success btn-rounded mb-2">SELESAI</button>' : '') +
+                    "<a href='#' data-id=" + val.id + " class='ubah-status'>Ubah status</a>" +
+                    "</td>" +
+                    "</tr>"
+                )
+            })
+        }
+    })
+}
+
 
 $("body").on("click", ".ubah-status", function () {
     var id = $(this).data("id");
@@ -40,13 +98,12 @@ $("body").on("click", ".ubah-status", function () {
             $("#ubahStatus").modal("show");
             $("#id").val(data.result.id);
             $("#kondisi_mesin").val(data.result.kondisi_mesin);
-            console.log(data.result);
             $(".tombol-update").click(function () {
                 update(id);
+                load()
             });
         },
     });
-    $("#ubahStatus").modal("hide");
 });
 
 function update(id) {
@@ -58,9 +115,9 @@ function update(id) {
         },
         success: function (data) {
             if (data.errors) {
-                console.log("error");
+                // console.log("error");
             } else {
-                console.log("success");
+                // console.log("success");
                 $("#ubahStatus").modal("hide");
             }
         },
@@ -68,11 +125,9 @@ function update(id) {
 }
 
 $(document).ready(function () {
+    load()
     $("body").on("click", ".lihat-gambar", function () {
         var id = $(this).attr("data-id");
-
-        console.log(id);
-
         var url = "admin/showimage/" + id;
 
         if (id > 0) {
@@ -87,9 +142,11 @@ $(document).ready(function () {
                 success: function (result) {
                     $("#resultImage").html(result.html);
                     $("#showImage").modal("show");
-                },
+                    $('.close').on('click', function () {
+                        $('#showImage').modal('hide');
+                    })
+                }
             });
-            $("#showImage").modal("hide");
         }
     });
 });

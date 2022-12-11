@@ -36,14 +36,12 @@ class AbsenController extends Controller
      */
     public function create()
     {
-        // if(auth()->user()->role_id !== 2 && auth()->user()->role_id == 1){
             return view('absen.create', [
                 'teknisis' => User::all(),
                 'atms' => Atm::all(),
                 'absens' => Absen::with('atm')->orderBy('created_at', 'desc')->get(),
                 'tanggal' => Carbon::now()->isoFormat('dddd, D MMM Y'),
             ]);
-        // }
     }
 
     /**

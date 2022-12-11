@@ -4,15 +4,25 @@ namespace App\Http\Controllers;
 
 use App\Models\Absen;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
+
 
 class AdminController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
         $this->authorize('admin');
-        $data = Absen::all();
+        $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
+
+        if($request->ajax()){
+            return response()->json($data);
+        }
         return view('admin.index', ['datas' => $data]);
+
+        // return DataTables::of($data)->addIndexColumn()->addColumn('aksi', function($data){
+        //     return view('admin.index')->with('data', $data);
+        // })->make(true);
     }
 
      public function showimage($id = 0){
