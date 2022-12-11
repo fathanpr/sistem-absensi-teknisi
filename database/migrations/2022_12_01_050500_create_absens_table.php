@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id');
             $table->foreignId('atm_id');
             // $table->string('nip_teknisi');
-            // $table->string('nama_teknisi');
+            $table->string( 'nama_lengkap');
             $table->string('latitude');
             $table->string('longitude');
             // $table->string('nama_atm');

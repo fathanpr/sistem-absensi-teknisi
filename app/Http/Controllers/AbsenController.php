@@ -54,8 +54,8 @@ class AbsenController extends Controller
     {
         $request->validate([
             // 'nip_teknisi' => 'required|numeric',
-            // 'nama_teknisi' => 'required|max:255',
             'user_id' => 'required',
+            'nama_lengkap' => 'required|max:255',
             'atm_id' => 'required',
             'latitude' => 'required',
             'longitude' => 'required',
@@ -74,7 +74,7 @@ class AbsenController extends Controller
 
         $absen = new Absen;
         // $absen->nip_teknisi = $request->input('nip_teknisi');
-        // $absen->nama_teknisi = $request->input('nama_teknisi');
+        $absen->nama_lengkap = $request->input('nama_lengkap');
         $absen->user_id = $request->input('user_id');
         $absen->atm_id = $request->input('atm_id');
         $absen->latitude = $request->input('latitude');
@@ -85,7 +85,7 @@ class AbsenController extends Controller
         $absen->foto = $fileName;
         $absen->save();
 
-        Alert::success('success',"Data {$request['nama_karyawan']} berhasil ditambahkan!");
+        Alert::success('SUCCESS',"Data {$request['nama_lengkap']} Berhasil Ditambahkan!");
         return redirect()->route('absen.create');
         
     }

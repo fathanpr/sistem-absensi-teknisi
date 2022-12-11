@@ -6,6 +6,7 @@
     <title>Absen</title>
     <link rel="stylesheet" href="{{ asset('assets/css/absen.css') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <body onload="getLocation()">
 
@@ -26,19 +27,18 @@
                                     @csrf
                                     <div class="mb-3 mt-4">
                                         <span class="badge bg-primary rectangle-pill mb-2">ID Teknisi</span>
-                                        <select class="form-select" name="user_id">
+                                        {{-- <select class="form-select" name="user_id" id="nip_teknisi">
                                             @foreach($teknisis as $tk)
-                                            <option value="{{ $tk->id }}">{{ $tk->nip_teknisi }}</option>
-                                            @endforeach
-                                        </select>
+                                            <option value="{{ $tk->nama_lengkap }}">{{ $tk->nip_teknisi }}</option>
+                                        @endforeach
+                                        </select> --}}
+                                        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                                        <input type="text" name="nip_teknisi" value="{{ auth()->user()->nip_teknisi }}" readonly>
                                     </div>
                                     <div class="mb-3">
                                         <span class="badge bg-primary rectangle-pill mb-2">Nama Teknisi</span>
-                                        <select class="form-select" name="user_id">
-                                            @foreach($teknisis as $tk)
-                                            <option value="{{ $tk->id }}">{{ $tk->nama_lengkap }}</option>
-                                            @endforeach
-                                        </select>
+                                        {{-- <input type="text" name="nama_lengkap" id="nama_lengkap" value="" readonly> --}}
+                                        <input type="text" name="nama_lengkap" value="{{ auth()->user()->nama_lengkap }}" readonly>
                                     </div>
                                     <div class="mb-3">
                                         <input type="hidden" name="latitude" class="form-control">

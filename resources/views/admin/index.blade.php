@@ -42,10 +42,10 @@
         <table class="table align-middle mb-0 bg-white" id="myTable">
             <thead class="bg-primary bg-gradient text-light fw-bold">
                 <tr>
+                    <th style="width: 200px">TANGGAL</th>
                     <th style="width: 200px">NAMA</th>
                     <th style="width: 200px" class="text-center">ID MESIN</th>
                     <th style="width: 200px" class="text-center">LOKASI</th>
-                    <th style="width: 200px">WAKTU</th>
                     <th style="width: 200px">KETERANGAN</th>
                     <th style="width: 200px" class="text-center">FOTO</th>
                     <th class="text-center">STATUS</th>
@@ -127,14 +127,14 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Status</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="id" class="form-control">
                     <input type="hidden" name="kondisi_mesin" id="kondisi_mesin" class="form-control">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-secondary close" data-bs-dismiss="modal">Tutup</button>
                     <button type="button" class="btn btn-primary tombol-update">Ubah Status</button>
                 </div>
             </div>

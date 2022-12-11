@@ -10,8 +10,8 @@ class Absen extends Model
 {
     protected $fillable = [
         // 'nip_teknisi',
-        // 'nama_teknisi',
         'user_id',
+        'nama_lengkap',
         'latitude',
         'longitude',
         // 'nama_atm',

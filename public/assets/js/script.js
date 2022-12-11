@@ -46,14 +46,20 @@ function load() {
         success: function (data) {
             $('#data').html('')
             $.each(data, function (key, val) {
+
+                var tanggal = new Date(val.created_at).toDateString();
+
                 $('#data').append(
                     "<tr>" +
                     "<td>" +
+                    "<p>" + val.created_at + "</p>" +
+                    "</td>" +
+                    "<td>" +
                     "<div class='d-flex align-items-center'>" +
                     "<div class='ms-3 >" +
-                    "<p class='fw-bold mb-0' style='width:150px'>" + val.user.nama_lengkap + "</p>" +
+                    "<p class='fw-bold mb-0' style='width:150px'>" + val.nama_lengkap + "</p>" +
                     "<i class='fab fa-whatsapp text-primary'></i>" +
-                    "<a href='https://wa.me/" + val.user.no_telp + " target='_blank'> Hubungi Teknisi</a>" +
+                    "<a href='https://wa.me/" + val.user.no_telp + "' target='_blank'> Hubungi Teknisi</a>" +
                     "</div>" +
                     "</div>" +
                     "</td>" +
@@ -65,9 +71,6 @@ function load() {
                     "<div style='width: 180; height: 180;'>" +
                     "<iframe src='https://www.google.com/maps?q=" + val.latitude + "," + val.longitude + "&hl=es;z=14&output=embed' frameborder='0'>" + "</iframe>" +
                     "</div>" +
-                    "</td>" +
-                    "<td>" +
-                    "<p>" + date_format(val.created_at) + "</p>" +
                     "</td>" +
                     "<td>" +
                     val.keterangan +
@@ -102,6 +105,9 @@ $("body").on("click", ".ubah-status", function () {
                 update(id);
                 load()
             });
+            $('.close').on('click', function () {
+                $('#ubahStatus').modal('hide');
+            })
         },
     });
 });
@@ -150,3 +156,9 @@ $(document).ready(function () {
         }
     });
 });
+
+$('#nip_teknisi').on('change', function () {
+    $('#nama_lengkap').val($(this).val())
+})
+
+$('#nip_teknisi').change()

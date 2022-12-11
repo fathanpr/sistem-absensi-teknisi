@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\Atm;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -16,7 +17,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(5)->create();
+        // \App\Models\User::factory(5)->create();
 
         // User::create([
         //     'nip_teknisi' => '1928346547',
@@ -28,12 +29,55 @@ class DatabaseSeeder extends Seeder
 
         $this->call(RoleSeeder::class);
 
+        User::create([
+            'role_id' => 1,
+            'nip_teknisi' => '1201070075',
+            'nama_lengkap' => 'Gilang Maulana',
+            'no_telp' => '08945534425',
+            'email' => 'gilang@gmail.com',
+            'password' => '$2y$10$m4Gbn8/W19WoubWkh.BNrOdteSVaB2i4e.imSTx9ikoQ7gw5r9dQW',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        User::create([
+            'role_id' => 1,
+            'nip_teknisi' => '1201070076',
+            'nama_lengkap' => 'Fathan Pebrilistyo',
+            'no_telp' => '085573425289',
+            'email' => 'fathanpr@gmail.com',
+            'password' => '$2y$10$m4Gbn8/W19WoubWkh.BNrOdteSVaB2i4e.imSTx9ikoQ7gw5r9dQW',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        User::create([
+            'role_id' => 2,
+            'nip_teknisi' => '2201070077',
+            'nama_lengkap' => 'Ilhan Firaldi',
+            'no_telp' => '089987342439',
+            'email' => 'ilhan@gmail.com',
+            'password' => '$2y$10$m4Gbn8/W19WoubWkh.BNrOdteSVaB2i4e.imSTx9ikoQ7gw5r9dQW',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
+        User::create([
+            'role_id' => 2,
+            'nip_teknisi' => '2201070078',
+            'nama_lengkap' => 'Darmawan Riski',
+            'no_telp' => '089288573685',
+            'email' => 'darmawan@gmail.com',
+            'password' => '$2y$10$m4Gbn8/W19WoubWkh.BNrOdteSVaB2i4e.imSTx9ikoQ7gw5r9dQW',
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
+        ]);
+
         Atm::create([
             
             'nama_atm' => 'ATM Galuh Mas',
             'alamat_atm' => 'Jl. Galuh Mas Raya, Sukaharja, Telukjambe Timur, Karawang, Jawa Barat 41361',
             'kode_mesin' => '10751330994'
-
         ]);
 
         Atm::create(
