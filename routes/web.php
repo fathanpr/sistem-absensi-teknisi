@@ -16,21 +16,22 @@ use App\Http\Controllers\Auth\LoginController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
 
-Route::group(['middleware' => 'auth'], function(){
-    // pegawai
-    Route::resource('absen', AbsenController::class);
-
-});
-
-Route::get('/login', function () {
-    return view('auth.login');
-});
-Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+// Route::group(['middleware' => 'auth'], function () {});
 
 // admin
-Route::get('/admin', [AdminController::class, 'index']);
+Route::get('/admin', [AdminController::class, 'index'])->middleware('admin')->name('admin');
 Route::get('/admin/{id}/ubahstatus', [AdminController::class, 'ubahstatus']);
 Route::post('admin/updatestatus/{id}', [AdminController::class, 'updatestatus'])->name('updatestatus');
 Route::get('/admin/showimage/{id}', [AdminController::class, 'showimage'])->name('showimage');
+
+// pegawai
+Route::resource('absen', AbsenController::class)->middleware('auth');
+
+
+Route::get('/login', function () {
+    return view('auth.login');
+})->name('login');
+Route::get('logout', [LoginController::class, 'logout'])->name('logout');

@@ -28,7 +28,18 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::ABSEN;
+
+    // protected $redirectTo = RouteServiceProvider::ADMIN;
+
+    protected function redirectTo()
+    {
+        if (auth()->user()->role_id === 1) {
+            return '/admin';  
+        } else {
+            return '/absen/create';
+        }
+    }
+
 
     /**
      * Create a new controller instance.
@@ -38,6 +49,26 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function authenticate(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email:dns',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt($credentials)) {
+            if (auth()->user()->role_id == 1) {
+                $request->session()->regenerate();
+                return redirect()->intended('/admin');
+            } else if (auth()->user()->role_id == 2) {
+                $request->session()->regenerate();
+                return redirect()->intended('/absen/create');
+            }
+        }
+
+        return redirect()->route('/login');
     }
 
     public function logout(Request $request)

@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
     public function index(){
+
+        $this->authorize('admin');
         $data = Absen::all();
         return view('admin.index', ['datas' => $data]);
     }

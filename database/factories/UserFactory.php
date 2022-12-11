@@ -20,6 +20,7 @@ class UserFactory extends Factory
     {
         $faker = Faker::create('id_ID');
         return [
+            'role_id' => $faker->numberBetween(1,2),
             'nip_teknisi' => $faker->numerify('1#########'),
             'nama_lengkap' => $faker->name(),
             'no_telp' => $faker->numerify('08##########'),

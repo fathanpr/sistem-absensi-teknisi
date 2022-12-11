@@ -26,6 +26,8 @@ class DatabaseSeeder extends Seeder
         //     'password' => '12345678'
         // ]);
 
+        $this->call(RoleSeeder::class);
+
         Atm::create([
             
             'nama_atm' => 'ATM Galuh Mas',

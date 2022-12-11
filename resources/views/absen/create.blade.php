@@ -10,7 +10,6 @@
 <body onload="getLocation()">
 
     @include('sweetalert::alert')
-
     <section class="form-absen">
         <div class="container">
             <div class="row d-flex justify-content-center">
@@ -114,9 +113,9 @@
                                     </div>
 
                                     @if($data->kondisi_mesin == 'Menunggu Tindakan')
-                                        <span class="badge bg-warning rounded-pill mt-4">Menunggu Tindakan</span>
+                                    <span class="badge bg-warning rounded-pill mt-4">Menunggu Tindakan</span>
                                     @elseif($data->kondisi_mesin == 'Selesai')
-                                        <span class="badge bg-success rounded-pill mt-4">SELESAI</span>
+                                    <span class="badge bg-success rounded-pill mt-4">SELESAI</span>
                                     @else
                                     @endif
                                 </li>

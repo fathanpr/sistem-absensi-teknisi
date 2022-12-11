@@ -120,14 +120,15 @@
 
 
 <!-- Modal Ubah Status -->
-<form action="{{ route('updatestatus', $data->id) }}" method="post">
+{{-- <form action="{{ route('updatestatus', $data->id) }}" method="post"> --}}
+<form action="" method="post">
     @csrf
     @method('put')
     <div class="modal" id="ubahStatus" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Ubah Status</h1>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -135,8 +136,8 @@
                     <input type="hidden" name="kondisi_mesin" id="kondisi_mesin" class="form-control">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary tombol-update">Save changes</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
+                    <button type="button" class="btn btn-primary tombol-update">Ubah Status</button>
                 </div>
             </div>
         </div>
