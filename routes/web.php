@@ -17,13 +17,10 @@ use App\Http\Controllers\Auth\LoginController;
 |
 */
 
-Route::get('/', function(){
-    return view('auth.login');
-});
-
-Auth::routes();
 
 // Route::group(['middleware' => 'auth'], function () {});
+
+Auth::routes();
 
 // admin
 Route::get('/admin', [AdminController::class, 'index'])->middleware('admin')->name('admin');
