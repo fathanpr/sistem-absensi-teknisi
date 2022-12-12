@@ -24,11 +24,9 @@ Auth::routes();
 
 // admin
 Route::get('/admin', [AdminController::class, 'index'])->middleware('admin')->name('admin');
-Route::get('/admin/filter',[AdminController::class,'filter'])->name('filter');
 Route::get('/admin/{id}/ubahstatus', [AdminController::class, 'ubahstatus']);
 Route::post('admin/updatestatus/{id}', [AdminController::class, 'updatestatus'])->name('updatestatus');
 Route::get('/admin/showimage/{id}', [AdminController::class, 'showimage'])->name('showimage');
-
 
 // pegawai
 Route::resource('absen', AbsenController::class)->middleware('auth');
@@ -38,3 +36,5 @@ Route::get('/login', function () {
 })->name('login');
 
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
+
+Route::get('/admin/tabs',[AdminController::class,'showProgress'])->name('admin.progress');

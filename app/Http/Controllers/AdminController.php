@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Absen;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
@@ -18,10 +19,10 @@ class AdminController extends Controller
         $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
         $nama_lengkap = $request->nama_lengkap;
         $created_at = $request->created_at;
-
         
         if($request->ajax()){
             if($request->has($nama_lengkap,$created_at)){
+                $data = Absen::where('nama_lengkap', '=',$nama_lengkap)->whereDate('created_at', 'like', '%'.$created_at.'%')->with(['user', 'atm'])->get();
                 $data = Absen::where('nama_lengkap', '=',$nama_lengkap)->whereDate('created_at', 'like', '%'.$created_at.'%')->with(['user', 'atm'])->get();
             }
             else{
@@ -32,6 +33,8 @@ class AdminController extends Controller
         // }else if($request->has(['nama_lengkap','created_at'])){
         //     $data = Absen::where('id', '=',$request->nama_lengkap)
         // ->whereDate('created_at', '=', '%'.$request->created_at.'%')->with(['user', 'atm'])->get();
+    }else{
+        $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
     }
     return view('admin.index', ['datas' => $data,'nama'=> $nama]);
         // return response()->json($data);
@@ -76,6 +79,25 @@ class AdminController extends Controller
         return response()->json([
             'result' => $data
         ]);
+    }
+
+    public function showProgress(Request $request){
+        if($request->has('created_at')){
+            $darmawan = Absen::where('user_id','=',3)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
+            $ilhan = Absen::where('user_id','=',4)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
+        }else{
+            $darmawan = Absen::where('user_id','=',3)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
+            $ilhan = Absen::where('user_id','=',4)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
+        }
+        return view('admin.progress',compact('darmawan','ilhan'));
+    }
+
+    public function findProgres(Request $request){
+        $progres = $request->created_at;
+        $darmawan = Absen::where('user_id','=',3)->whereDate('created_at', 'LIKE', '%'.$progres.'%')->orderBy('created_at', 'desc')->count();
+        $ilhan = Absen::where('user_id','=',4)->whereDate('created_at', 'LIKE', '%'.$progres.'%')->orderBy('created_at', 'desc')->count();
+        dd($ilhan, $darmawan);
+        return redirect()->route('admin.findprogres',['darmawan'=>$darmawan,'ilhan'=>$ilhan]);
     }
 
     public function updatestatus(Request $request, $id){

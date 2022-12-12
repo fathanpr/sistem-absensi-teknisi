@@ -1,9 +1,5 @@
 const toggleSidebar = () => document.body.classList.toggle("open");
 
-$(function() {
-    $('#datetimepicker1').datetimepicker();
-});
-
 // location
 function getLocation() {
     if (navigator.geolocation) {
@@ -121,6 +117,19 @@ $("body").on("click", ".ubah-status", function () {
         },
     });
 });
+
+$("body").on("click", ".filter", function () {
+    var nama_lengkap = $(this).data("nama_lengkap");
+    var created_at = $(this).data("created_at");
+    $.ajax({
+        url: "admin/",
+        type: "GET",
+        success: function (data) {
+            load()
+        },
+    });
+});
+
 
 function update(id) {
     $.ajax({
