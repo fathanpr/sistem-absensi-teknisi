@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use RealRashid\SweetAlert\Facades\Alert;
+use Illuminate\Support\Facades\Auth;
 
 class AbsenController extends Controller
 {
@@ -40,7 +41,7 @@ class AbsenController extends Controller
                 'teknisis' => User::all(),
                 'atms' => Atm::all(),
                 // 'absens' => Absen::with('atm')->orderBy('created_at', 'desc')->get(),
-                'absens' => Absen::with('atm')->orderBy('created_at', 'desc')->get(),
+                'absens' => Absen::with('atm')->where('user_id', Auth::user()->id)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->get(),
                 'tanggal' => Carbon::now()->isoFormat('dddd, D MMM Y'),
             ]);
     }

@@ -1,5 +1,9 @@
 const toggleSidebar = () => document.body.classList.toggle("open");
 
+$(function() {
+    $('#datetimepicker1').datetimepicker();
+});
+
 // location
 function getLocation() {
     if (navigator.geolocation) {
@@ -47,12 +51,19 @@ function load() {
             $('#data').html('')
             $.each(data, function (key, val) {
 
-                var tanggal = new Date(val.created_at).toDateString();
+                var tanggal = new Date(val.created_at);
+                const yyyy = tanggal.getFullYear();
+                let mm = tanggal.getMonth() + 1; // Months start at 0!
+                let dd = tanggal.getDate();
+
+                if (dd < 10) dd = '0' + dd;
+                if (mm < 10) mm = '0' + mm;
+                const formattedToday = dd + '/' + mm + '/' + yyyy;
 
                 $('#data').append(
                     "<tr>" +
                     "<td>" +
-                    "<p>" + val.created_at + "</p>" +
+                    "<p>" + formattedToday + "</p>" +
                     "</td>" +
                     "<td>" +
                     "<div class='d-flex align-items-center'>" +
@@ -89,7 +100,6 @@ function load() {
         }
     })
 }
-
 
 $("body").on("click", ".ubah-status", function () {
     var id = $(this).data("id");
@@ -162,3 +172,5 @@ $('#nip_teknisi').on('change', function () {
 })
 
 $('#nip_teknisi').change()
+
+

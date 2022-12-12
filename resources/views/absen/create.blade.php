@@ -25,7 +25,7 @@
                             <div class="col-md-8">
                                 <form class="myForm" method="post" action="{{ route('absen.store') }}" enctype="multipart/form-data">
                                     @csrf
-                                    <div class="mb-3 mt-4">
+                                    <div class="mb-3 mt-4 input-id">
                                         <span class="badge bg-primary rectangle-pill mb-2">ID Teknisi</span>
                                         {{-- <select class="form-select" name="user_id" id="nip_teknisi">
                                             @foreach($teknisis as $tk)
@@ -33,12 +33,12 @@
                                         @endforeach
                                         </select> --}}
                                         <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                                        <input type="text" name="nip_teknisi" value="{{ auth()->user()->nip_teknisi }}" readonly>
+                                        <input type="text" class="no-copy" name="nip_teknisi" value="{{ auth()->user()->nip_teknisi }}" readonly>
                                     </div>
-                                    <div class="mb-3">
+                                    <div class="mb-3 input-id">
                                         <span class="badge bg-primary rectangle-pill mb-2">Nama Teknisi</span>
                                         {{-- <input type="text" name="nama_lengkap" id="nama_lengkap" value="" readonly> --}}
-                                        <input type="text" name="nama_lengkap" value="{{ auth()->user()->nama_lengkap }}" readonly>
+                                        <input class="no-copy" type="text" name="nama_lengkap" value="{{ auth()->user()->nama_lengkap }}" readonly>
                                     </div>
                                     <div class="mb-3">
                                         <input type="hidden" name="latitude" class="form-control">

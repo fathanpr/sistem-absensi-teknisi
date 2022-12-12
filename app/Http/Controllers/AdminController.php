@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Absen;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -12,18 +13,49 @@ class AdminController extends Controller
 {
     public function index(Request $request){
 
+        $nama = User::all();
         $this->authorize('admin');
         $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
+        $nama_lengkap = $request->nama_lengkap;
+        $created_at = $request->created_at;
 
+        
         if($request->ajax()){
+            if($request->has($nama_lengkap,$created_at)){
+                $data = Absen::where('nama_lengkap', '=',$nama_lengkap)->whereDate('created_at', 'like', '%'.$created_at.'%')->with(['user', 'atm'])->get();
+            }
+            else{
+                // $data = Absen::where('nama_lengkap', '=',$nama_lengkap)->whereDate('created_at', 'like', '%'.$created_at.'%')->with(['user', 'atm'])->get();
+                $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
+            }
             return response()->json($data);
-        }
-        return view('admin.index', ['datas' => $data]);
+        // }else if($request->has(['nama_lengkap','created_at'])){
+        //     $data = Absen::where('id', '=',$request->nama_lengkap)
+        // ->whereDate('created_at', '=', '%'.$request->created_at.'%')->with(['user', 'atm'])->get();
+    }
+    return view('admin.index', ['datas' => $data,'nama'=> $nama]);
+        // return response()->json($data);
+        
 
         // return DataTables::of($data)->addIndexColumn()->addColumn('aksi', function($data){
         //     return view('admin.index')->with('data', $data);
         // })->make(true);
     }
+
+    // public function filter(Request $request){
+    //     $this->authorize('admin');
+    //     $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
+    //     $data_filter = Absen::where('nama_lengkap', '=','%'.$request->nama_lengkap.'%')
+    //     ->whereDate('created_at', '=', $request->created_at)->with(['user', 'atm'])->get();
+
+    //     if($request->has(['nama_lengkap','created_at'])){
+    //         $data_filter = Absen::where('nama_lengkap', '=','%'.$request->nama_lengkap.'%')->whereDate('created_at', '=', $request->created_at)->with(['user', 'atm'])->get();
+    //     }else{
+    //         $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
+    //     }
+
+    //     return view('admin.index', ['datas' => $data,'nama'=> $nama]);
+    // }
 
      public function showimage($id = 0){
         $foto = Absen::find($id);

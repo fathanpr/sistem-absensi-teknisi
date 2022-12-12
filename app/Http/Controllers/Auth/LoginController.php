@@ -68,7 +68,7 @@ class LoginController extends Controller
             }
         }
 
-        return redirect()->route('/login');
+        return redirect()->route('/login'); 
     }
 
     public function logout(Request $request)
