@@ -35,17 +35,26 @@ class AdminController extends Controller
     }
 
     //MASIH ERROR
-    public function ubahstatus($id){
+    public function ubahstatus(Request $request,$id){
         $data = Absen::where('id', $id);
-        if($data->where('kondisi_mesin', '=' ,'Menunggu Tindakan')){
-            $data->update([
-                'kondisi_mesin' => 'Selesai'
-            ]);
+
+        $kondisi1 = [
+            'kondisi_mesin' => 'Selesai',
+        ];
+
+        $kondisi2 = [
+            'kondisi_mesin' => 'Menunggu Tindakan',
+        ];
+
+        $data = $request->input('kondisi_mesin');
+
+        if($data == 'Menunggu Tindakan') {
+            Absen::where('id', $id)->update($kondisi1);
+        }else if($data == 'Selesai'){
+            Absen::where('id', $id)->update($kondisi2);
+        }else{
+            return redirect()->route('admin')->with('success','Kondisi mesin berhasil diubah');
         }
-        $data->update([
-                'kondisi_mesin' => 'Menunggu Tindakan'
-        ]);
-        return redirect()->route('admin')->with('success','Kondisi mesin berhasil diubah');
     }
 
     public function showProgress(Request $request){

@@ -25,8 +25,7 @@ Auth::routes();
 // admin
 Route::get('/admin', [AdminController::class, 'index'])->middleware('admin')->name('admin');
 Route::get('/admin/tabs',[AdminController::class,'showProgress'])->middleware('admin')->name('admin.progress');
-Route::put('/admin/ubahstatus/{id}', [AdminController::class, 'ubahstatus'])->name('ubahstatus');
-Route::put('admin/updatestatus/{id}', [AdminController::class, 'updatestatus'])->name('updatestatus');
+Route::get('/admin/ubahstatus/{id}', [AdminController::class, 'ubahstatus'])->name('ubahstatus');
 Route::get('/admin/showimage/{id}', [AdminController::class, 'showimage'])->name('showimage');
 
 // pegawai

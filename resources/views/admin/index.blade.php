@@ -103,11 +103,7 @@
                         <button type="button" class="btn btn-success btn-rounded mb-2">SELESAI</button>
                         @else
                         @endif
-                        <form action="{{ route('ubahstatus',$data->id)}}" method="POST">
-                            @csrf
-                            @method('PUT')
-                            <button type="submit" class="btn btn-outline-primary">Ubah Status</button>
-                        </form>
+                        <a href="{{  route('ubahstatus',$data->id) }}" method="POST">Ubah Status</a>
                     </td>
                 </tr>
                 @endforeach
