@@ -13,83 +13,52 @@ use Illuminate\Support\Facades\Validator;
 class AdminController extends Controller
 {
     public function index(Request $request){
-
-        $nama = User::all();
+        $nama = User::where('role_id', 2)->get();
         $this->authorize('admin');
+        $tanggal = Carbon::parse($request->created_at)->isoFormat('dddd, D MMM Y');
         $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
         $nama_lengkap = $request->nama_lengkap;
         $created_at = $request->created_at;
         
-        if($request->ajax()){
-            if($request->has($nama_lengkap,$created_at)){
-                $data = Absen::where('nama_lengkap', '=',$nama_lengkap)->whereDate('created_at', 'like', '%'.$created_at.'%')->with(['user', 'atm'])->get();
-                $data = Absen::where('nama_lengkap', '=',$nama_lengkap)->whereDate('created_at', 'like', '%'.$created_at.'%')->with(['user', 'atm'])->get();
-            }
-            else{
-                // $data = Absen::where('nama_lengkap', '=',$nama_lengkap)->whereDate('created_at', 'like', '%'.$created_at.'%')->with(['user', 'atm'])->get();
-                $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
-            }
-            return response()->json($data);
-        // }else if($request->has(['nama_lengkap','created_at'])){
-        //     $data = Absen::where('id', '=',$request->nama_lengkap)
-        // ->whereDate('created_at', '=', '%'.$request->created_at.'%')->with(['user', 'atm'])->get();
-    }else{
-        $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
-    }
-    return view('admin.index', ['datas' => $data,'nama'=> $nama]);
-        // return response()->json($data);
-        
-
-        // return DataTables::of($data)->addIndexColumn()->addColumn('aksi', function($data){
-        //     return view('admin.index')->with('data', $data);
-        // })->make(true);
-    }
-
-    // public function filter(Request $request){
-    //     $this->authorize('admin');
-    //     $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
-    //     $data_filter = Absen::where('nama_lengkap', '=','%'.$request->nama_lengkap.'%')
-    //     ->whereDate('created_at', '=', $request->created_at)->with(['user', 'atm'])->get();
-
-    //     if($request->has(['nama_lengkap','created_at'])){
-    //         $data_filter = Absen::where('nama_lengkap', '=','%'.$request->nama_lengkap.'%')->whereDate('created_at', '=', $request->created_at)->with(['user', 'atm'])->get();
-    //     }else{
-    //         $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
-    //     }
-
-    //     return view('admin.index', ['datas' => $data,'nama'=> $nama]);
-    // }
-
-     public function showimage($id = 0){
-        $foto = Absen::find($id);
-
-        $html = "";
-        if(!empty($foto)){
-            $html = "<img src='/storage/uploads/" .$foto->foto."' class='rounded' alt='' style='width: 400px; height: 400px' />";
+        if($request->has('created_at','nama_lengkap')){
+            $data = Absen::where('nama_lengkap', '=',$nama_lengkap)->whereDate('created_at', 'like', '%'.$created_at.'%')->with(['user', 'atm'])->get();
         }
-
-        $response['html'] = $html;
-
-        return response()->json($response);
-        // return view('admin.detail',['fotos' => $foto]);
+        else{
+            $data = Absen::orderBy('created_at', 'desc')->with(['user', 'atm'])->get();
+        }
+        return view('admin.index', ['datas' => $data,'nama'=> $nama,'tanggal'=> $tanggal]);
     }
 
+     public function showimage($id){
+        $foto = Absen::find($id);
+        return view('admin.index', ['foto' => $foto]);
+    }
+
+    //MASIH ERROR
     public function ubahstatus($id){
-        $data = Absen::where('id', $id)->first();
-        return response()->json([
-            'result' => $data
+        $data = Absen::where('id', $id);
+        if($data->where('kondisi_mesin', '=' ,'Menunggu Tindakan')){
+            $data->update([
+                'kondisi_mesin' => 'Selesai'
+            ]);
+        }
+        $data->update([
+                'kondisi_mesin' => 'Menunggu Tindakan'
         ]);
+        return redirect()->route('admin')->with('success','Kondisi mesin berhasil diubah');
     }
 
     public function showProgress(Request $request){
         if($request->has('created_at')){
-            $darmawan = Absen::where('user_id','=',3)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
-            $ilhan = Absen::where('user_id','=',4)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
+            $tanggal = Carbon::parse($request->created_at)->isoFormat('dddd, D MMM Y');
+            $ilhan = Absen::where('user_id','=',3)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
+            $darmawan = Absen::where('user_id','=',4)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
         }else{
-            $darmawan = Absen::where('user_id','=',3)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
-            $ilhan = Absen::where('user_id','=',4)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
+            $tanggal = Carbon::parse($request->created_at)->isoFormat('dddd, D MMM Y');
+            $ilhan = Absen::where('user_id','=',3)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
+            $darmawan = Absen::where('user_id','=',4)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
         }
-        return view('admin.progress',compact('darmawan','ilhan'));
+        return view('admin.progress',compact('darmawan','ilhan','tanggal'));
     }
 
     public function findProgres(Request $request){

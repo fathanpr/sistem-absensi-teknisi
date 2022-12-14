@@ -1,5 +1,8 @@
 @extends('table-progres')
 @section('title','Daftar Absensi Teknisi')
+@section('link')
+    <a class="dropdown-item" href="{{ route('admin') }}">Detail Absen Teknisi</a>
+@endsection
 @section('content')
 <div class="container my-5">
     <div class="konten">
@@ -7,7 +10,7 @@
             <div class="row">
                 <div class="col-6">
                     <h1>Progres Kerja Teknisi</h1>
-                    <p>Minggu, 15 Desember 2022<p>
+                    <p>{{ $tanggal }}<p>
                 </div>
                 <div class="col-6">
                     <form action="{{route('admin.progress')}}" method="GET">
@@ -22,37 +25,67 @@
                 </form>
                 </div>
             </div>
-            <div class="shadow-5-strong rounded-5 overflow-auto">
+            <div class="shadow-5-strong rounded-5 overflow-auto mb-3">
                 <table class="table align-middle mb-0 bg-white" id="myTable">
                     <thead class="bg-primary bg-gradient text-light fw-bold">
                         <tr>
-                            <th style="width: 50px">Nama</th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
+                            <th colspan="7">Ilhan Firaldi</th>
+                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$ilhan}} dari 11</th>
                         </tr>
                     </thead>
                     <tbody id="data">
-                        <tr>
-                            <td>Darmawan Kijut</td>
+                        <tr class="text-center">
                             @for($i = 0; $i < $ilhan ; $i++)
                             <td><i class="fas fa-check fa-lg" style="color: #2cdb00"></i></td>
                             @endfor
                         </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="shadow-5-strong rounded-5 overflow-auto mb-3">
+                <table class="table align-middle mb-0 bg-white" id="myTable">
+                    <thead class="bg-primary bg-gradient text-light fw-bold">
                         <tr>
-                            <td>Ilhan Firaldi</td>
+                            <th colspan="7">Darmawan Kijut</th>
+                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$darmawan}} dari 11</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data">
+                        <tr class="text-center">
+                            @for($i = 0; $i < $darmawan ; $i++)
+                            <td><i class="fas fa-check fa-lg" style="color: #2cdb00"></i></td>
+                            @endfor
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="shadow-5-strong rounded-5 overflow-auto mb-3">
+                <table class="table align-middle mb-0 bg-white" id="myTable">
+                    <thead class="bg-primary bg-gradient text-light fw-bold">
+                        <tr>
+                            <th colspan="7">Darmawan Kijut</th>
+                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$darmawan}} dari 11</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data">
+                        <tr class="text-center">
+                            @for($i = 0; $i < $darmawan ; $i++)
+                            <td><i class="fas fa-check fa-lg" style="color: #2cdb00"></i></td>
+                            @endfor
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="shadow-5-strong rounded-5 overflow-auto mb-3">
+                <table class="table align-middle mb-0 bg-white" id="myTable">
+                    <thead class="bg-primary bg-gradient text-light fw-bold">
+                        <tr>
+                            <th colspan="7">Darmawan Kijut</th>
+                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$darmawan}} dari 11</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data">
+                        <tr class="text-center">
                             @for($i = 0; $i < $darmawan ; $i++)
                             <td><i class="fas fa-check fa-lg" style="color: #2cdb00"></i></td>
                             @endfor

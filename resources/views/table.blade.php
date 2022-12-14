@@ -11,8 +11,9 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,700&display=swap" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/magnific-popup.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet"/>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css"/>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top bg-light shadow-5">
@@ -26,7 +27,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
                         <li>
-                            <a class="dropdown-item" href="#">User Setting</a>
+                            @yield('link')
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
@@ -37,41 +38,10 @@
         </div>
     </nav>
     @yield('content')
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="http://maps.googleapis.com/maps/api/js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-    {{-- <script type="text/javascript">
-        window.addEventListener("scroll", function() {
-            var nav = document.querySelector("nav");
-            nav.classList.toggle("sticky", window.scrollY > 0);
-        });
-
-    </script> --}}
-    {{-- <script>
-        function initialize() {
-            var propertiPeta = {
-                center: new google.maps.LatLng(-8.5830695, 116.3202515)
-                , zoom: 9
-                , mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
-
-            var peta = new google.maps.Map(document.getElementById("googleMap"), propertiPeta);
-        }
-
-        // event jendela di-load  
-        google.maps.event.addDomListener(window, 'load', initialize);
-
-        $("#kt_daterangepicker_3").daterangepicker({
-            singleDatePicker: true
-            , showDropdowns: true
-            , minYear: 1901
-            , maxYear: parseInt(moment().format("YYYY"), 10)
-        }, function(start, end, label) {
-            var years = moment().diff(start, "years");
-            alert("You are " + years + " years old!");
-        });
-
-    </script> --}}
-    <!-- MDB -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.0.1/mdb.min.js"></script>
     <script src="{{ asset('assets/js/script.js') }}"></script>
 </body>

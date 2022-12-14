@@ -1,12 +1,17 @@
 @extends('table')
 @section('title','Daftar Absensi Teknisi')
+@section('link')
+    <a class="dropdown-item" href="{{ route('admin.progress') }}">Overview Progress Teknisi</a>
+@endsection
 @section('content')
 <div class="container my-5">
     <div class="konten">
         <div class="col-12 mb-3">
             <div class="row">
                 <div class="col-6">
-                    <form action="" method="GET">
+                    <h1>Detail Absen Teknisi</h1>
+                    <p>{{$tanggal}}<p>
+                    <form action="/admin" method="GET">
                     @csrf
                     <div class="row">
                         <div class="col-md-6">
@@ -23,7 +28,18 @@
                             <button type="submit" class="btn btn-primary filter"><i class="fas fa-filter"></i></button>
                         </div>
                     </div>
-                </form>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <br>
+                    <br>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-end">
+                            <a href="{{ route('admin') }}" class="btn btn-success">Lihat Semua Data</a>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -36,52 +52,65 @@
                     <th style="width: 200px">NAMA</th>
                     <th style="width: 200px" class="text-center">ID MESIN</th>
                     <th style="width: 200px" class="text-center">LOKASI</th>
+                    <th style="width: 200px" class="text-center">WAKTU</th>
                     <th style="width: 200px">KETERANGAN</th>
                     <th style="width: 200px" class="text-center">FOTO</th>
                     <th class="text-center">STATUS</th>
                 </tr>
             </thead>
             <tbody id="data">
-                {{-- @foreach($datas as $data) --}}
-                {{-- <tr> --}}
-                    {{-- <td>
+                @foreach($datas as $data)
+                <tr>
+                    <td>
+                        <p>{{Carbon\Carbon::parse($data->created_at)->isoFormat('dddd, D MMM Y') ?? '' }}</p>
+                    </td>
+                    <td>
                         <div class="d-flex align-items-center">
                             <div class="ms-3">
                                 <p class="fw-bold mb-0" style="width: 150px">{{ $data->user->nama_lengkap }}</p>
                                 <i class="fab fa-whatsapp text-primary"></i><a href="https://wa.me/{{ $data->user->no_telp }}" target="_blank"> Hubungi Teknisi</a>
                             </div>
                         </div>
-                    </td> --}}
-                    {{-- <td class="text-center">
+                    </td>
+                    <td class="text-center">
                         <p>{{ $data->atm->kode_mesin }}</p>
-                    </td> --}}
-                    {{-- <td class="text-center">
+                    </td>
+                    <td class="text-center">
                         <p>{{ $data->atm->nama_atm }}</p>
                         <div style="width:180;height:180;">
                             <iframe src="https://www.google.com/maps?q={{ $data->latitude }},{{ $data->longitude }}&hl=es;z=14&output=embed" frameborder="0"></iframe>
                         </div>
-                    </td> --}}
-                    {{-- <td>
+                    </td>
+                    <td>
                         <p>{{Carbon\Carbon::parse($data->created_at)->format('H:i') ?? '' }} WIB</p>
-                    </td> --}}
-                    {{-- <td>
+                    </td>
+                    <td>
                         {{ $data->keterangan }}
-                    </td> --}}
-                    {{-- <td class="text-center">
-                        <img src="storage/uploads/{{ $data->foto }}" class="rounded" alt="" style="width: 100px; height: 100px" />
-                        <a href="#" data-id="{{ $data->id }}" bs-toggle="modal" data-bs-target="#showImage" class="lihat-gambar">Lihat Gambar</a>
-                    </td> --}}
-                    {{-- <td style="width: 200px" class="text-center">
+                    </td>
+                    <td class="text-center">
+
+                        <a data-fancybox data-src="storage/uploads/{{$data->foto}}" data-caption="{{ $data->foto}}">
+                            <img src="storage/uploads/{{$data->foto}}" width="100" height="100"/>
+                          </a>
+                        {{-- <a href="storage/uploads/{{$data->foto}}" data-lightbox="image-1" data-title="My caption">
+                            <img src="storage/uploads/{{$data->foto}}" class="rounded" alt="" style="width: 100px; height: 100px" />
+                        </a> --}}
+                    </td>
+                    <td style="width: 200px" class="text-center">
                         @if($data->kondisi_mesin == 'Menunggu Tindakan')
                         <button type="button" class="btn btn-warning btn-rounded mb-2">Perlu Tindakan</button>
                         @elseif($data->kondisi_mesin == 'Selesai')
                         <button type="button" class="btn btn-success btn-rounded mb-2">SELESAI</button>
                         @else
                         @endif
-                        <a href="#" data-id="{{ $data->id }}" class="ubah-status">Ubah status</a>
-                    </td> --}}
-                {{-- </tr> --}}
-                {{-- @endforeach --}}
+                        <form action="{{ route('ubahstatus',$data->id)}}" method="POST">
+                            @csrf
+                            @method('PUT')
+                            <button type="submit" class="btn btn-outline-primary">Ubah Status</button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -138,4 +167,11 @@
         </div>
     </div>
 </form>
+
+<script>
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true
+    })
+</script>
 @endsection

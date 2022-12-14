@@ -26,7 +26,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
 
                         <li>
-                            <a class="dropdown-item" href="#">User Setting</a>
+                            @yield('link')
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
