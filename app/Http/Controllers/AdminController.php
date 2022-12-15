@@ -42,7 +42,8 @@ class AdminController extends Controller
             Absen::where('id',$id)->update([
                 'kondisi_mesin' => 'Selesai'
             ]);
-        }else{
+        }
+        else{
             Absen::where('id',$id)->update([
                 'kondisi_mesin' => 'Menunggu Tindakan'
             ]);
@@ -53,22 +54,27 @@ class AdminController extends Controller
     public function showProgress(Request $request){
         if($request->has('created_at')){
             $tanggal = Carbon::parse($request->created_at)->isoFormat('dddd, D MMM Y');
-            $ilhan = Absen::where('user_id','=',3)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
-            $darmawan = Absen::where('user_id','=',4)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
+            $iyan = Absen::where('user_id','=',1)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
+            $lukman = Absen::where('user_id','=',2)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
+            $kholik = Absen::where('user_id','=',3)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
+            $masum = Absen::where('user_id','=',4)->whereDate('created_at', 'LIKE', $request->created_at)->orderBy('created_at', 'desc')->count();
         }else{
             $tanggal = Carbon::parse($request->created_at)->isoFormat('dddd, D MMM Y');
-            $ilhan = Absen::where('user_id','=',3)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
-            $darmawan = Absen::where('user_id','=',4)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
+            $iyan = Absen::where('user_id','=',1)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
+            $lukman = Absen::where('user_id','=',2)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
+            $kholik = Absen::where('user_id','=',3)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
+            $masum = Absen::where('user_id','=',4)->whereDate('created_at', '=', Carbon::today()->toDateString())->orderBy('created_at', 'desc')->count();
         }
-        return view('admin.progress',compact('darmawan','ilhan','tanggal'));
+        return view('admin.progress',compact('iyan','lukman','kholik','masum','tanggal'));
     }
 
     public function findProgres(Request $request){
         $progres = $request->created_at;
-        $darmawan = Absen::where('user_id','=',3)->whereDate('created_at', 'LIKE', '%'.$progres.'%')->orderBy('created_at', 'desc')->count();
-        $ilhan = Absen::where('user_id','=',4)->whereDate('created_at', 'LIKE', '%'.$progres.'%')->orderBy('created_at', 'desc')->count();
-        dd($ilhan, $darmawan);
-        return redirect()->route('admin.findprogres',['darmawan'=>$darmawan,'ilhan'=>$ilhan]);
+        $iyan = Absen::where('user_id','=',1)->whereDate('created_at', 'LIKE', '%'.$progres.'%')->orderBy('created_at', 'desc')->count();
+        $lukman = Absen::where('user_id','=',2)->whereDate('created_at', 'LIKE', '%'.$progres.'%')->orderBy('created_at', 'desc')->count();
+        $kholik = Absen::where('user_id','=',3)->whereDate('created_at', 'LIKE', '%'.$progres.'%')->orderBy('created_at', 'desc')->count();
+        $masum = Absen::where('user_id','=',4)->whereDate('created_at', 'LIKE', '%'.$progres.'%')->orderBy('created_at', 'desc')->count();
+        return redirect()->route('admin.findprogres',['iyan'=>$iyan,'lukman'=>$lukman,'kholik'=>$kholik,'masum'=>$masum]);
     }
 
     // public function updatestatus(Request $request, $id){

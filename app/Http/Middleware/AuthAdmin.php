@@ -15,10 +15,10 @@ class AuthAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle(Request $request, Closure $next)
+    public function handle($request, Closure $next)
     {
          if(!auth()->check() || auth()->user()->role_id !== 1){
-            abort(403);
+            return redirect()->route('login');
         }
             return $next($request);
         

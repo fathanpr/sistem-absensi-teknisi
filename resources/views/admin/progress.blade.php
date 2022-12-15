@@ -29,13 +29,13 @@
                 <table class="table align-middle mb-0 bg-white" id="myTable">
                     <thead class="bg-primary bg-gradient text-light fw-bold">
                         <tr>
-                            <th colspan="7">Ilhan Firaldi</th>
-                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$ilhan}} dari 11</th>
+                            <th colspan="7">Iyan</th>
+                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$iyan}} dari 11</th>
                         </tr>
                     </thead>
                     <tbody id="data">
                         <tr class="text-center">
-                            @for($i = 0; $i < $ilhan ; $i++)
+                            @for($i = 0; $i < $iyan ; $i++)
                             <td><i class="fas fa-check fa-lg" style="color: #2cdb00"></i></td>
                             @endfor
                         </tr>
@@ -46,13 +46,13 @@
                 <table class="table align-middle mb-0 bg-white" id="myTable">
                     <thead class="bg-primary bg-gradient text-light fw-bold">
                         <tr>
-                            <th colspan="7">Darmawan Kijut</th>
-                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$darmawan}} dari 11</th>
+                            <th colspan="7">Lukmanul Chakim</th>
+                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$lukman}} dari 12</th>
                         </tr>
                     </thead>
                     <tbody id="data">
                         <tr class="text-center">
-                            @for($i = 0; $i < $darmawan ; $i++)
+                            @for($i = 0; $i < $lukman ; $i++)
                             <td><i class="fas fa-check fa-lg" style="color: #2cdb00"></i></td>
                             @endfor
                         </tr>
@@ -63,13 +63,13 @@
                 <table class="table align-middle mb-0 bg-white" id="myTable">
                     <thead class="bg-primary bg-gradient text-light fw-bold">
                         <tr>
-                            <th colspan="7">Darmawan Kijut</th>
-                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$darmawan}} dari 11</th>
+                            <th colspan="7">Gus Kholik</th>
+                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$kholik}} dari 11</th>
                         </tr>
                     </thead>
                     <tbody id="data">
                         <tr class="text-center">
-                            @for($i = 0; $i < $darmawan ; $i++)
+                            @for($i = 0; $i < $kholik ; $i++)
                             <td><i class="fas fa-check fa-lg" style="color: #2cdb00"></i></td>
                             @endfor
                         </tr>
@@ -80,13 +80,13 @@
                 <table class="table align-middle mb-0 bg-white" id="myTable">
                     <thead class="bg-primary bg-gradient text-light fw-bold">
                         <tr>
-                            <th colspan="7">Darmawan Kijut</th>
-                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$darmawan}} dari 11</th>
+                            <th colspan="7">Ma'sum</th>
+                            <th colspan="7" style="text-align:end;">Telah melakukan absen sebanyak {{$masum}} dari 13</th>
                         </tr>
                     </thead>
                     <tbody id="data">
                         <tr class="text-center">
-                            @for($i = 0; $i < $darmawan ; $i++)
+                            @for($i = 0; $i < $masum ; $i++)
                             <td><i class="fas fa-check fa-lg" style="color: #2cdb00"></i></td>
                             @endfor
                         </tr>
