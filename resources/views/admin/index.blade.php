@@ -43,6 +43,16 @@
                 </div>
             </div>
         </div>
+        <div class="row">
+            <div class="col-12">
+                @if (Session::has('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Sukses!</strong> Kondisi mesin berhasil diubah.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                @endif
+            </div>
+        </div>
     </div>
     <div class="shadow-5-strong rounded-5 overflow-auto">
         <table class="table align-middle mb-0 bg-white" id="myTable">
@@ -98,12 +108,12 @@
                     </td>
                     <td style="width: 200px" class="text-center">
                         @if($data->kondisi_mesin == 'Menunggu Tindakan')
-                        <button type="button" class="btn btn-warning btn-rounded mb-2">Perlu Tindakan</button>
-                        @elseif($data->kondisi_mesin == 'Selesai')
-                        <button type="button" class="btn btn-success btn-rounded mb-2">SELESAI</button>
-                        @else
-                        @endif
+                        <button type="button" class="btn btn-warning btn-rounded mb-2">MENUNGGU TINDAKAN</button>
                         <a href="{{  route('ubahstatus',$data->id) }}" method="POST">Ubah Status</a>
+                        @else
+                        <button type="button" class="btn btn-success btn-rounded mb-2">SELESAI</button>
+                        <a href="{{  route('ubahstatus',$data->id) }}" method="POST">Ubah Status</a>
+                        @endif
                     </td>
                 </tr>
                 @endforeach

@@ -19,7 +19,7 @@
                             <button type="submit" class="btn btn-primary filter"><i class="fas fa-filter"></i></button>
                         </div>
                         <div class="col-6">
-                            <input type="date" aria-label="First name" class="form-control" name="created_at" value="{{ Request::get('created_at') }}">
+                            <input type="date" aria-label="First name" class="form-control" name="created_at" value="{{ Request::get('created_at') ?? date('Y-m-d')}}">
                         </div>
                     </div>
                 </form>

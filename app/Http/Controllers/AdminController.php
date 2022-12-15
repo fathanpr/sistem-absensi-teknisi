@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Absen;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
@@ -34,27 +35,19 @@ class AdminController extends Controller
         return view('admin.index', ['foto' => $foto]);
     }
 
-    //MASIH ERROR
-    public function ubahstatus(Request $request,$id){
-        $data = Absen::where('id', $id);
-
-        $kondisi1 = [
-            'kondisi_mesin' => 'Selesai',
-        ];
-
-        $kondisi2 = [
-            'kondisi_mesin' => 'Menunggu Tindakan',
-        ];
-
-        $data = $request->input('kondisi_mesin');
-
-        if($data == 'Menunggu Tindakan') {
-            Absen::where('id', $id)->update($kondisi1);
-        }else if($data == 'Selesai'){
-            Absen::where('id', $id)->update($kondisi2);
+    public function ubahstatus($id){
+        $data = Absen::where('id', $id)->first();
+        $kondisi_sekarang = $data->kondisi_mesin;
+        if($kondisi_sekarang == 'Menunggu Tindakan'){
+            Absen::where('id',$id)->update([
+                'kondisi_mesin' => 'Selesai'
+            ]);
         }else{
-            return redirect()->route('admin')->with('success','Kondisi mesin berhasil diubah');
+            Absen::where('id',$id)->update([
+                'kondisi_mesin' => 'Menunggu Tindakan'
+            ]);
         }
+        return redirect(URL::previous())->with('success','Kondisi mesin berhasil di update');
     }
 
     public function showProgress(Request $request){
@@ -78,37 +71,37 @@ class AdminController extends Controller
         return redirect()->route('admin.findprogres',['darmawan'=>$darmawan,'ilhan'=>$ilhan]);
     }
 
-    public function updatestatus(Request $request, $id){
+    // public function updatestatus(Request $request, $id){
 
-        // $data = Absen::find($id);
-        // $data->kondisi_mesin = $request->kondisi_mesin;
-        $validasi = Validator::make($request->all(), [
-            'kondisi_mesin' => 'required',
-        ]);
+    //     // $data = Absen::find($id);
+    //     // $data->kondisi_mesin = $request->kondisi_mesin;
+    //     $validasi = Validator::make($request->all(), [
+    //         'kondisi_mesin' => 'required',
+    //     ]);
 
-        if ($validasi->fails()) {
-            return response()->json(['errors' => $validasi->errors()]);
-        } else {
+    //     if ($validasi->fails()) {
+    //         return response()->json(['errors' => $validasi->errors()]);
+    //     } else {
 
-            $kondisi1 = [
-                'kondisi_mesin' => 'Selesai',
-            ];
+    //         $kondisi1 = [
+    //             'kondisi_mesin' => 'Selesai',
+    //         ];
 
-            $kondisi2 = [
-                'kondisi_mesin' => 'Menunggu Tindakan',
-            ];
+    //         $kondisi2 = [
+    //             'kondisi_mesin' => 'Menunggu Tindakan',
+    //         ];
 
-            $data = $request->input('kondisi_mesin');
+    //         $data = $request->input('kondisi_mesin');
 
-            if($data == 'Menunggu Tindakan') {
-                Absen::where('id', $id)->update($kondisi1);
-                return response()->json(['success' => "success melakukan update data"]);
-            }else if($data == 'Selesai'){
-                Absen::where('id', $id)->update($kondisi2);
-                return response()->json(['success' => "success melakukan update data"]);
-            }else{
-                return redirect('admin.index');
-            }
-        }
-    }
+    //         if($data == 'Menunggu Tindakan') {
+    //             Absen::where('id', $id)->update($kondisi1);
+    //             return response()->json(['success' => "success melakukan update data"]);
+    //         }else if($data == 'Selesai'){
+    //             Absen::where('id', $id)->update($kondisi2);
+    //             return response()->json(['success' => "success melakukan update data"]);
+    //         }else{
+    //             return redirect('admin.index');
+    //         }
+    //     }
+    // }
 }
